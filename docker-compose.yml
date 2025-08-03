@@ -1,0 +1,31 @@
+services:
+  nuxt:
+    build:
+      context: .
+      target: dev            # ← for development
+      # target: production   # ← for production
+    ports:
+      - "3000:3000"
+    # Enable ./:/app for development, .output for production
+    volumes:
+      - ./:/app              # ← for development
+      # - /app/.output       # ← for production
+      - /app/node_modules
+    environment:
+      - NUXT_PORT=3000
+
+  nginx:
+    image: nginx:alpine
+    container_name: nginx
+    ports:
+      - "80:80"
+      - "443:443"
+    volumes:
+      - ./nginx/nginx.conf:/etc/nginx/nginx.conf:ro
+      - ./nginx/certs:/etc/nginx/certs:ro
+    depends_on:
+      - nuxt
+
+# node_modules is mounted as a separate volume to avoid syncing with host
+volumes:
+  node_modules:
