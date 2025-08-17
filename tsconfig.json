@@ -2,8 +2,8 @@
   // https://nuxt.com/docs/guide/concepts/typescript
   "compilerOptions": {
     "paths": {
-      "#server/*": ["./server/*"],
-      "#shared/*": ["./shared/*"],
+      "#server/*": ["./src/server/*"],
+      "#shared/*": ["./src/shared/*"],
     },
     "strict": true,
   },
