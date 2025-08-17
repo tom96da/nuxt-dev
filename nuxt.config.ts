@@ -1,5 +1,5 @@
 // https://nuxt.com/docs/api/configuration/nuxt-config
-import { fileURLToPath } from 'node:url'
+import path from 'node:path'
 
 export default defineNuxtConfig({
 
@@ -18,7 +18,7 @@ export default defineNuxtConfig({
   srcDir: 'src/app/',
   serverDir: 'src/server/',
   alias: {
-    '#server': fileURLToPath(new URL('src/server', import.meta.url)),
+    '#server': path.resolve(import.meta.dirname, 'src/server'),
   },
   compatibilityDate: '2025-07-15',
   eslint: {

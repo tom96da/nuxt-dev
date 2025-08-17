@@ -6,6 +6,7 @@
       "#shared/*": ["./src/shared/*"],
     },
     "strict": true,
+    "types": ["vitest/globals"],
   },
   "files": [],
   "references": [

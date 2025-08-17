@@ -54,11 +54,16 @@ const deleteUser = (uid?: string): boolean => {
   const userIndex = usersStore.findIndex(user => user.uid === uid)
   const existingUser = usersStore.at(userIndex)
 
-  if (!existingUser) {
+  if (userIndex === -1 || !existingUser) {
     return false
   }
   usersStore.splice(userIndex, 1)
   return true
+}
+
+const resetUserStore = () => {
+  usersStore.length = 0
+  userIdCounter = 1
 }
 
 export {
@@ -68,4 +73,6 @@ export {
   getUser,
   updateUser,
   deleteUser,
+  usersStore,
+  resetUserStore,
 }
