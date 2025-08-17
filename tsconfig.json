@@ -1,5 +1,12 @@
 {
   // https://nuxt.com/docs/guide/concepts/typescript
+  "compilerOptions": {
+    "paths": {
+      "#server/*": ["./server/*"],
+      "#shared/*": ["./shared/*"],
+    },
+    "strict": true,
+  },
   "files": [],
   "references": [
     {
