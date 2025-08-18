@@ -1,20 +1,27 @@
-import path from 'node:path'
-
 import { defineConfig } from 'vitest/config'
 import { defineVitestConfig } from '@nuxt/test-utils/config'
 import viteTsconfigPaths from 'vite-tsconfig-paths'
+import vue from '@vitejs/plugin-vue'
+
+const resolve = {
+  alias: {
+    '#server': '/src/server',
+    '#shared': '/src/shared',
+  },
+}
 
 export default defineConfig({
-  plugins: [viteTsconfigPaths()],
+  plugins: [viteTsconfigPaths(), vue()],
   test: {
-    globals: true,
     projects: [
       {
+        plugins: [vue(), viteTsconfigPaths()],
         test: {
           name: 'unit',
-          include: ['./tests/unit/**/*.test.ts'],
-          environment: 'node',
+          include: ['./src/**/*.test.ts', './tests/unit/**/*.test.ts'],
+          environment: 'happy-dom',
         },
+        resolve,
       },
       defineVitestConfig({
         test: {
@@ -34,12 +41,6 @@ export default defineConfig({
       provider: 'v8',
       reporter: ['text', 'json', 'json-summary', 'html'],
       include: ['src/**/*.ts'],
-    },
-  },
-  resolve: {
-    alias: {
-      '#server/*': path.resolve(import.meta.dirname, 'src/server/*'),
-      '#shared/*': path.resolve(import.meta.dirname, 'src/shared/*'),
     },
   },
 })

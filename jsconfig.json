@@ -1,0 +1,10 @@
+{
+  "compilerOptions": {
+    "baseUrl": ".",
+    "paths": {
+      "#server/*": ["src/server/*"],
+      "#shared/*": ["src/shared/*"]
+    }
+  },
+  "exclude": ["node_modules", ".nuxt"]
+}

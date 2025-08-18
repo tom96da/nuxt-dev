@@ -7,7 +7,7 @@ import {
   getUser,
   updateUser,
   deleteUser, resetUserStore,
-} from '../../../src/server/services/users'
+} from './users'
 
 describe('users service', () => {
   beforeEach(() => {

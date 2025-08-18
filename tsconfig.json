@@ -1,12 +1,12 @@
 {
   // https://nuxt.com/docs/guide/concepts/typescript
   "compilerOptions": {
-    "paths": {
-      "#server/*": ["./src/server/*"],
-      "#shared/*": ["./src/shared/*"],
-    },
     "strict": true,
-    "types": ["vitest/globals"],
+    "baseUrl": ".",
+    "paths": {
+      "#server/*": ["src/server/*"],
+      "#shared/*": ["src/shared/*"]
+    }
   },
   "files": [],
   "references": [
