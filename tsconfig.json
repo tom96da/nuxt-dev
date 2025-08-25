@@ -6,7 +6,9 @@
     "paths": {
       "#server/*": ["src/server/*"],
       "#shared/*": ["src/shared/*"]
-    }
+    },
+    "module": "preserve",
+    "moduleResolution": "bundler"
   },
   "files": [],
   "references": [

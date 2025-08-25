@@ -1,7 +1,7 @@
 <template>
   <form @submit.prevent="onSubmit">
     <div>
-      <label for="name">名前</label>
+      <label for="name">{{ $t('Name') }}</label>
       <Field
         id="name" name="name" as="input" type="text"
         :class="{ 'is-invalid': errors.name }" autocomplete="off" required
@@ -11,7 +11,7 @@
       </ErrorMessage>
     </div>
     <div>
-      <label for="email">メールアドレス</label>
+      <label for="email">{{ $t('Email') }}</label>
       <Field
         id="email" name="email" as="input" type="email"
         :class="{ 'is-invalid': errors.email }" autocomplete="off" required
@@ -21,7 +21,7 @@
       </ErrorMessage>
     </div>
     <button type="submit">
-      send
+      {{ $t('Submit') }}
     </button>
   </form>
 </template>
@@ -33,6 +33,8 @@ import { userFormSchema } from '#shared/schema/user'
 
 import { useRouter } from 'vue-router'
 
+const toast = useToast()
+
 const { handleSubmit, errors } = useForm({
   validationSchema: toTypedSchema(userFormSchema),
   initialValues: {
@@ -42,6 +44,7 @@ const { handleSubmit, errors } = useForm({
 })
 
 const router = useRouter()
+const localePath = useLocalePath()
 
 const onSubmit = handleSubmit(async (form) => {
   try {
@@ -49,7 +52,12 @@ const onSubmit = handleSubmit(async (form) => {
       method: 'POST',
       body: form,
     })
-    router.push('/users')
+    router.push(localePath('/users'))
+    toast.add({
+      title: $t('Success'),
+      description: $t('User created successfully'),
+      color: 'success',
+    })
   }
   catch (error) {
     if (error instanceof Error) {

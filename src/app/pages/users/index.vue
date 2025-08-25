@@ -1,34 +1,38 @@
 <script setup lang="ts">
 import type { User } from '#shared/schema/user'
 
-const users = useState<User[]>('users', () => [])
-const error = useState<string | undefined>('error')
-
-async function fetchUsers() {
-  const result = await $fetch('/api/users', { ignoreResponseError: true })
-  if (result.success === false) {
-    error.value = result.error
-    users.value = []
-    return
-  }
-  users.value = result.users
-  error.value = undefined
+let users: User[] | undefined
+let error: string | undefined
+const { data, error: fetchError, pending } = await useFetch('/api/users/')
+if (fetchError.value) {
+  error = $t('Unexpected Error')
 }
-
-await fetchUsers()
+else if (data?.value?.length === 0) {
+  error = $t('No users found')
+}
+else {
+  users = data.value
+}
 </script>
 
 <template>
   <div>
-    <h1>User List</h1>
+    <h1>{{ $t('User List') }}</h1>
+    <div v-if="pending">
+      {{ $t('Loading users') }}
+    </div>
     <div v-if="error">
       {{ error }}
     </div>
     <ul v-else>
       <li v-for="user in users" :key="user.uid">
-        <NuxtLink :to="`/users/${user.uid}`">{{ user.name }}</NuxtLink>
+        <NuxtLinkLocale :to="`/users/${user.uid}`">
+          {{ user.name }}
+        </NuxtLinkLocale>
       </li>
     </ul>
-    <NuxtLink to="/users/new" class="btn btn-primary">Create New User</NuxtLink>
+    <NuxtLinkLocale to="/users/new" class="btn btn-primary">
+      {{ $t('Create New User') }}
+    </NuxtLinkLocale>
   </div>
 </template>

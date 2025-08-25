@@ -1,7 +1,13 @@
+<script setup lang="ts">
+const toaster = { position: 'top-center' } as const
+</script>
+
 <template>
-  <div>
+  <UApp :toaster="toaster">
     <AppHeader />
-    <slot />
+    <UMain>
+      <slot />
+    </UMain>
     <AppFooter />
-  </div>
+  </UApp>
 </template>

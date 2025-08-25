@@ -1,5 +1,5 @@
 <template>
-  <footer>
-    <p>&copy; 2025 tom96da</p>
-  </footer>
+  <UFooter>
+    <p>&copy; {{ new Date().getFullYear() }} tom96da</p>
+  </UFooter>
 </template>

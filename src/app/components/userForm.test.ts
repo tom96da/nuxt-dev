@@ -12,13 +12,21 @@ vi.mock('vue-router', () => ({
 
 vi.stubGlobal('$fetch', vi.fn())
 
+const fetchSpy = vi.fn().mockResolvedValue({})
+
 describe('UserForm', () => {
   beforeEach(() => {
     vi.clearAllMocks()
   })
 
   it('renders name and email fields', () => {
-    const wrapper = mount(UserForm)
+    const wrapper = mount(UserForm, {
+      global: {
+        provide: {
+          $fetch: fetchSpy,
+        },
+      },
+    })
     expect(wrapper.find('input[name="name"]').exists()).toBe(true)
     expect(wrapper.find('input[name="email"]').exists()).toBe(true)
   })
@@ -38,7 +46,14 @@ describe('UserForm', () => {
 
   it('submits valid form and redirects', async () => {
     const fetchSpy = vi.fn().mockResolvedValue({})
-    vi.stubGlobal('$fetch', fetchSpy)
+    vi.mock('#app', () => ({
+      useNuxtApp: () => ({
+        $fetch: Object.assign(fetchSpy, {
+          raw: vi.fn(),
+          create: vi.fn(),
+        }),
+      }),
+    }))
     const wrapper = mount(UserForm)
     const nameInput = wrapper.find('input[name="name"]')
     const emailInput = wrapper.find('input[name="email"]')
@@ -68,6 +83,6 @@ describe('UserForm', () => {
     await flushPromises()
     await flushPromises()
     expect(alertSpy.mock.calls.length).toBeGreaterThan(0)
-    expect(alertSpy.mock.calls[0][0]).toMatch(/fail/)
+    expect(alertSpy.mock.calls[0]?.[0]).toMatch(/fail/)
   })
 })

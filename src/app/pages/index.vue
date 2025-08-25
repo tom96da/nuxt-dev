@@ -1,6 +1,6 @@
 <template>
-  <div>
-    <h1>Welcome to Nuxt 4</h1>
-    <p>This is the home page.</p>
-  </div>
+  <UPageHero
+    :title="$t('Welcome to Nuxt 4')"
+    :description="$t('This is the home page')"
+  />
 </template>
