@@ -7,6 +7,8 @@ ENV NUXT_PORT=3000
 
 # Install pnpm globally
 RUN npm install -g pnpm@latest
+RUN chown -R node:node /app
+USER node
 
 # Dependency installation stage
 FROM base AS deps

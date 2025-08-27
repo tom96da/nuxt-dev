@@ -1,70 +1,57 @@
 <template>
-  <form @submit.prevent="onSubmit">
-    <div>
-      <label for="name">{{ $t('Name') }}</label>
-      <Field
-        id="name" name="name" as="input" type="text"
-        :class="{ 'is-invalid': errors.name }" autocomplete="off" required
-      />
-      <ErrorMessage v-slot="{ message }" name="name">
-        <span class="error">{{ message }}</span>
-      </ErrorMessage>
-    </div>
-    <div>
-      <label for="email">{{ $t('Email') }}</label>
-      <Field
-        id="email" name="email" as="input" type="email"
-        :class="{ 'is-invalid': errors.email }" autocomplete="off" required
-      />
-      <ErrorMessage v-slot="{ message }" name="email">
-        <span class="error">{{ message }}</span>
-      </ErrorMessage>
-    </div>
-    <button type="submit">
-      {{ $t('Submit') }}
-    </button>
-  </form>
+  <UCard>
+    <UForm :schema="userFormSchema" :state="state" class="space-y-4 p-4" @submit="onSubmit">
+      <UFormField :label="$t('Name')" name="name">
+        <UInput v-model="state.name" type="text" class="w-full" required />
+      </UFormField>
+      <UFormField :label="$t('Email')" name="email">
+        <UInput v-model="state.email" type="email" class="w-full" required />
+      </UFormField>
+
+      <UButton type="submit">
+        {{ $t('Submit') }}
+      </UButton>
+    </UForm>
+  </UCard>
 </template>
 
 <script setup lang="ts">
-import { useForm, Field, ErrorMessage } from 'vee-validate'
-import { toTypedSchema } from '@vee-validate/zod'
+import type { z } from 'zod'
+import type { FormSubmitEvent } from '@nuxt/ui'
 import { userFormSchema } from '#shared/schema/user'
-
 import { useRouter } from 'vue-router'
 
 const toast = useToast()
-
-const { handleSubmit, errors } = useForm({
-  validationSchema: toTypedSchema(userFormSchema),
-  initialValues: {
-    name: '',
-    email: '',
-  },
-})
-
 const router = useRouter()
 const localePath = useLocalePath()
 
-const onSubmit = handleSubmit(async (form) => {
+type FormData = z.infer<typeof userFormSchema>
+const state = reactive<Partial<FormData>>({})
+
+const onSubmit = async (_event: FormSubmitEvent<FormData>) => {
   try {
     await $fetch('/api/users', {
       method: 'POST',
-      body: form,
-    })
-    router.push(localePath('/users'))
-    toast.add({
-      title: $t('Success'),
-      description: $t('User created successfully'),
-      color: 'success',
+      body: state,
     })
   }
   catch (error) {
     if (error instanceof Error) {
-      alert(`Error: ${error.message}`)
+      toast.add({
+        title: $t('Unexpected Error'),
+        description: error.message,
+        color: 'error',
+      })
+      return
     }
   }
-})
+  router.push(localePath('/users'))
+  toast.add({
+    title: $t('Success'),
+    description: $t('User created successfully'),
+    color: 'success',
+  })
+}
 </script>
 
 <style scoped>

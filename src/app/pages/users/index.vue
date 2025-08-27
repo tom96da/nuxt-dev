@@ -16,8 +16,11 @@ else {
 </script>
 
 <template>
-  <div>
-    <h1>{{ $t('User List') }}</h1>
+  <UPage>
+    <UPageHeader :title="$t('User List')" />
+    <NuxtLinkLocale to="/users/new" class="btn btn-primary">
+      <UButton>{{ $t('Create New User') }}</UButton>
+    </NuxtLinkLocale>
     <div v-if="pending">
       {{ $t('Loading users') }}
     </div>
@@ -31,8 +34,5 @@ else {
         </NuxtLinkLocale>
       </li>
     </ul>
-    <NuxtLinkLocale to="/users/new" class="btn btn-primary">
-      {{ $t('Create New User') }}
-    </NuxtLinkLocale>
-  </div>
+  </UPage>
 </template>

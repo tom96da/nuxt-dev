@@ -9,7 +9,7 @@ const user: User | undefined = data.value
 </script>
 
 <template>
-  <div>
+  <UPage>
     <h1>{{ $t('User Details') }}</h1>
     <div v-if="pending">
       {{ $t('Loading user data') }}
@@ -24,5 +24,5 @@ const user: User | undefined = data.value
       <p><strong>Created At:</strong> {{ user!.createdAt }}</p>
       <p><strong>Updated At:</strong> {{ user!.updatedAt }}</p>
     </div>
-  </div>
+  </UPage>
 </template>
