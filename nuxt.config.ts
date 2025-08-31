@@ -3,16 +3,20 @@ import path from 'node:path'
 
 export default defineNuxtConfig({
   modules: [
-    '@nuxt/content',
     '@nuxt/eslint',
-    '@nuxt/image',
-    '@nuxt/test-utils',
     '@nuxt/ui',
+    '@nuxt/content',
+    '@nuxt/test-utils',
     '@nuxtjs/i18n',
+    '@nuxt/ui',
   ],
-  ssr: true,
-  devtools: { enabled: true },
+
+  devtools: {
+    enabled: true,
+  },
+
   css: ['~/assets/css/main.css'],
+
   dir: {
     shared: 'src/shared/',
     public: 'src/public/',
@@ -22,12 +26,19 @@ export default defineNuxtConfig({
   alias: {
     '#server': path.resolve(import.meta.dirname, 'src/server'),
   },
+
+  routeRules: {
+    '/docs': { redirect: '/docs/getting-started', prerender: false },
+  },
+
   compatibilityDate: '2025-07-15',
+
   eslint: {
     config: {
       stylistic: true,
     },
   },
+
   i18n: {
     locales: [
       { code: 'en', iso: 'en-US', file: 'en.json', name: 'English' },

@@ -5,9 +5,11 @@ const toaster = { position: 'top-center' } as const
 <template>
   <UApp :toaster="toaster">
     <AppHeader />
+
     <UMain>
       <slot />
     </UMain>
+
     <AppFooter />
   </UApp>
 </template>

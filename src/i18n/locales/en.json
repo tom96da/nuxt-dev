@@ -1,5 +1,6 @@
 {
   "Account Settings": "Account Settings",
+  "Changelog": "Changelog",
   "Create New User": "Create New User",
   "Documentation": "Documentation",
   "Email": "Email",
@@ -12,6 +13,8 @@
   "Name": "Name",
   "No users found": "No user found",
   "Settings": "Settings",
+  "Sign in": "Sign in",
+  "Sign up": "Sign up",
   "Submit": "Submit",
   "Success": "Success",
   "This is the home page": "This is the home page",

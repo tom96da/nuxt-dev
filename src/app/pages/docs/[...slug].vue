@@ -6,14 +6,14 @@ definePageMeta({
 const route = useRoute()
 
 const { data: page } = await useAsyncData(route.path, () => {
-  return queryCollection('content').path(route.path).first()
+  return queryCollection('docs').path(route.path).first()
 })
 if (!page.value) {
   throw createError({ statusCode: 404, statusMessage: 'Page not found', fatal: true })
 }
 
 const { data: surround } = await useAsyncData(`${route.path}-surround`, () => {
-  return queryCollectionItemSurroundings('content', route.path, {
+  return queryCollectionItemSurroundings('docs', route.path, {
     fields: ['description'],
   })
 })
@@ -28,7 +28,7 @@ const { data: surround } = await useAsyncData(`${route.path}-surround`, () => {
 
     <UPageBody>
       <ContentRenderer
-        v-if="page.body" :value="page" prose
+        v-if="page.body" :value="page"
       />
 
       <USeparator v-if="surround?.length" />

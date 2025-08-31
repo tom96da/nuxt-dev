@@ -1,4 +1,3 @@
-import { ref, watch, computed } from 'vue'
 import * as uiLocales from '@nuxt/ui/locale'
 import type { LocaleObject } from '@nuxtjs/i18n'
 

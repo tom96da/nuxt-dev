@@ -1,9 +1,14 @@
 <script setup lang="ts">
-const { data: navigation } = await useAsyncData('navigation', () => queryCollectionNavigation('content'), {
+// eslint-disable-next-line unicorn/prevent-abbreviations
+const { data: navigation } = await useAsyncData('navigation', () => {
+  return queryCollectionNavigation('docs')
+}, {
   transform: data => data.find(item => item.path === '/docs')?.children || data || [],
 })
-const { data: files } = useLazyAsyncData('search', () => queryCollectionSearchSections('content'), {
-  server: false
+const { data: files } = useLazyAsyncData('search', () => {
+  return queryCollectionSearchSections('docs')
+}, {
+  server: false,
 })
 </script>
 
@@ -42,6 +47,5 @@ const { data: files } = useLazyAsyncData('search', () => queryCollectionSearchSe
         :fuse="{ resultLimit: 42 }"
       />
     </ClientOnly>
-
   </div>
 </template>

@@ -1,5 +1,6 @@
 {
   "Account Settings": "アカウント設定",
+  "Changelog": "更新履歴",
   "Create New User": "新規ユーザーを作成",
   "Documentation": "ドキュメント",
   "Email": "メールアドレス",
@@ -12,6 +13,8 @@
   "Name": "名前",
   "No users found": "ユーザーが見つかりません",
   "Settings": "設定",
+  "Sign in": "サインイン",
+  "Sign up": "サインアップ",
   "Submit": "送信",
   "Success": "成功",
   "This is the home page": "これはホームページです",

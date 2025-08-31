@@ -56,7 +56,7 @@ export default withNuxt([
     files: ['**/app/**/*.vue'],
     rules: {
       'unicorn/filename-case': [
-        'error', { case: 'pascalCase', ignore: ['app.vue', '**/layout/*.vue'] }],
+        'error', { case: 'pascalCase', ignore: ['app.vue'] }],
     },
   },
   {
@@ -66,7 +66,7 @@ export default withNuxt([
     },
   },
   {
-    files: ['**/server/{api,routes}/**/*.{ts,js}', '**/app/pages/**/*.vue'],
+    files: ['**/server/{api,routes}/**/*.{ts,js}', '**/app/{pages,layouts}/**/*.vue'],
     rules: {
       'unicorn/filename-case': ['error', { case: 'kebabCase' }],
     },

@@ -1,11 +1,32 @@
 <template>
   <UCard>
-    <UForm :schema="userFormSchema" :state="state" class="space-y-4 p-4" @submit="onSubmit">
-      <UFormField :label="$t('Name')" name="name">
-        <UInput v-model="state.name" type="text" class="w-full" required />
+    <UForm
+      :schema="userFormSchema"
+      :state="state"
+      class="space-y-4 p-4"
+      @submit="onSubmit"
+    >
+      <UFormField
+        :label="$t('Name')"
+        name="name"
+      >
+        <UInput
+          v-model="state.name"
+          type="text"
+          class="w-full"
+          required
+        />
       </UFormField>
-      <UFormField :label="$t('Email')" name="email">
-        <UInput v-model="state.email" type="email" class="w-full" required />
+      <UFormField
+        :label="$t('Email')"
+        name="email"
+      >
+        <UInput
+          v-model="state.email"
+          type="email"
+          class="w-full"
+          required
+        />
       </UFormField>
 
       <UButton type="submit">
@@ -19,7 +40,6 @@
 import type { z } from 'zod'
 import type { FormSubmitEvent } from '@nuxt/ui'
 import { userFormSchema } from '#shared/schema/user'
-import { useRouter } from 'vue-router'
 
 const toast = useToast()
 const router = useRouter()
