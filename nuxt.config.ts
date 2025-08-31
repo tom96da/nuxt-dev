@@ -3,11 +3,11 @@ import path from 'node:path'
 
 export default defineNuxtConfig({
   modules: [
+    '@nuxt/content',
     '@nuxt/eslint',
     '@nuxt/image',
     '@nuxt/test-utils',
     '@nuxt/ui',
-    '@vee-validate/nuxt',
     '@nuxtjs/i18n',
   ],
   ssr: true,

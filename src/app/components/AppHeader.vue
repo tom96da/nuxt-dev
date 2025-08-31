@@ -1,6 +1,7 @@
 <script setup lang="ts">
 import type { NavigationMenuItem } from '@nuxt/ui'
 
+const route = useRoute()
 const { setLocale } = useI18n()
 const localePath = useLocalePath()
 const { currentLocale, locales } = useAvailableLocales()
@@ -8,6 +9,7 @@ const { currentLocale, locales } = useAvailableLocales()
 const items = computed<NavigationMenuItem[]>(() => [
   { label: $t('Home'), to: localePath('/') },
   { label: $t('Users'), to: localePath('/users') },
+  { label: $t('Documentation'), to: localePath('/docs'), active: route.path.startsWith('/docs')},
   { label: $t('Settings'), to: localePath('/settings') },
 ])
 </script>
